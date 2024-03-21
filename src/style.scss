@@ -1,0 +1,21 @@
+
+*{
+    margin: 0;
+    padding: 0;
+::-webkit-scrollbar {
+        display: none;
+        /* Chrome Safari */
+    }
+    a{
+        color: inherit;
+            /* 文字颜色继承父元素 */
+            text-decoration: none;
+            /* 去掉下划线 */
+            padding: 0;
+            /* 去掉padding */
+            border: none;
+            /* 去掉边框 */
+            font: inherit;
+            /* 字体样式继承父元素 */
+    }
+}
