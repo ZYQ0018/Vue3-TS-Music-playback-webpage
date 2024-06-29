@@ -58,7 +58,6 @@ onMounted(() => {
                 </div>
                 <TabCard :Personalized="Personalized6"></TabCard>
             </div>
-            <div class="bottom"></div>
         </div>
     </div>
 </template>
@@ -127,6 +126,7 @@ onMounted(() => {
     position: relative;
     width: 80%;
     height: 350px;
+    margin-bottom: 200px;
 }
 span:hover {
     color: #53b7b4;
@@ -146,11 +146,5 @@ span:hover {
         color: #858282;
         margin-left: 20px;
     }
-}
-.bottom {
-    width: 100px;
-    height: 30px;
-    position: absolute;
-    top: 185%;
 }
 </style>

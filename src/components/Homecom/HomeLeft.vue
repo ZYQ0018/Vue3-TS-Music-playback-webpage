@@ -71,7 +71,7 @@ const changeActiveIndex = (id: number) => {
     padding: 0;
 }
 h5 {
-    font-size: 28px;
+    font-size: 25px;
 }
 body {
     ul {
