@@ -1,19 +1,25 @@
 <script setup lang="ts">
-import VideoTab from '@/views/video/index.vue';
 import { useChangeStore } from '@/stores/change';
 import { useMainStore } from '@/stores/main';
 import { useCacheStore } from '@/stores/noCache';
 import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue';
+
 const store = useChangeStore();
 const cacheStore = useCacheStore();
 const { showOpen, Audio } = storeToRefs(store);
-const { ActiveUp, ActiveDown, showLogin, img } = storeToRefs(cacheStore);
+const { showLogin, img } = storeToRefs(cacheStore);
+const getLyic = useChangeStore().getLyic('2158973221');
+
 const login = useMainStore().login();
+const getDailyList = useChangeStore().getDailyList();
 //设置游客登录接口
 onMounted(() => {
     login;
+    getDailyList;
+    getLyic;
 });
+
 window.addEventListener('keyup', event => {
     if (event.code === 'Space' && Audio.value.paused) {
         showOpen.value = !showOpen.value;
@@ -36,9 +42,6 @@ const denglu = async () => {
 
 <template>
     <router-view></router-view>
-    <div class="VideoTab" :class="{ ActiveUp: ActiveUp, ActiveDown: ActiveDown }" @mousewheel.prevent>
-        <VideoTab></VideoTab>
-    </div>
     <!-- 扫码登录 -->
     <div class="login" v-if="showLogin" @touchmove.prevent>
         <div class="logo">
@@ -55,54 +58,6 @@ const denglu = async () => {
 </template>
 
 <style scoped lang="scss">
-.VideoTab {
-    width: 100%;
-    height: 100.9%;
-    position: fixed;
-    bottom: -100%;
-    z-index: 999;
-    transition: all 0.5s ease-in;
-}
-.ActiveUp {
-    animation: ActiveUp 0.5s forwards;
-    -webkit-animation: ActiveUp 0.5s forwards;
-    transition: all 0.1s ease;
-
-    z-index: 999;
-}
-.ActiveDown {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    z-index: 999;
-    transition: all 0.1s ease;
-    top: 0;
-    animation: ActiveDown 1s forwards;
-    -webkit-animation: ActiveDown 1s forwards;
-}
-@keyframes ActiveUp {
-    0% {
-        // opacity: 0;
-    }
-
-    10% {
-        // opacity: 1;
-    }
-    100% {
-        bottom: 0%;
-        opacity: 1;
-    }
-}
-@keyframes ActiveDown {
-    0% {
-    }
-
-    90% {
-    }
-    100% {
-        top: 101%;
-    }
-}
 .login {
     position: fixed;
     width: 400px;
