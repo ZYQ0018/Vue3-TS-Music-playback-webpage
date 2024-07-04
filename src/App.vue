@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import VideoTab from '@/views/video/index.vue';
+
 import { useChangeStore } from '@/stores/change';
 import { useMainStore } from '@/stores/main';
 import { useCacheStore } from '@/stores/noCache';
@@ -6,9 +8,10 @@ import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue';
 
 const store = useChangeStore();
+
 const cacheStore = useCacheStore();
 const { showOpen, Audio } = storeToRefs(store);
-const { showLogin, img } = storeToRefs(cacheStore);
+const { showLogin, img, ActiveUp, ActiveDown } = storeToRefs(cacheStore);
 const getLyic = useChangeStore().getLyic('2158973221');
 
 const login = useMainStore().login();
@@ -41,7 +44,7 @@ const denglu = async () => {
 </script>
 
 <template>
-    <router-view></router-view>
+    <Router-view></Router-view>
     <!-- 扫码登录 -->
     <div class="login" v-if="showLogin" @touchmove.prevent>
         <div class="logo">
@@ -54,6 +57,9 @@ const denglu = async () => {
             <div>使用网易云APP扫码登录</div>
         </div>
         <div class="visitorLogin" @click="denglu">游客登录</div>
+    </div>
+    <div class="VideoTab" :class="{ ActiveUp: ActiveUp, ActiveDown: ActiveDown }" @mousewheel.prevent>
+        <VideoTab></VideoTab>
     </div>
 </template>
 
@@ -124,5 +130,52 @@ const denglu = async () => {
 }
 .visitorLogin:hover {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+.VideoTab {
+    width: 100%;
+    height: 100.9%;
+    position: fixed;
+    bottom: -100%;
+    z-index: 999;
+    transition: all 0.5s ease-in;
+}
+.ActiveUp {
+    animation: ActiveUp 0.5s forwards;
+    -webkit-animation: ActiveUp 0.5s forwards;
+    transition: all 0.1s ease;
+    z-index: 999;
+}
+.ActiveDown {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 999;
+    transition: all 0.1s ease;
+    top: 0;
+    animation: ActiveDown 1s forwards;
+    -webkit-animation: ActiveDown 1s forwards;
+}
+@keyframes ActiveUp {
+    0% {
+        // opacity: 0;
+    }
+
+    10% {
+        // opacity: 1;
+    }
+    100% {
+        bottom: 0%;
+        opacity: 1;
+    }
+}
+@keyframes ActiveDown {
+    0% {
+    }
+
+    90% {
+    }
+    100% {
+        top: 101%;
+    }
 }
 </style>

@@ -3,18 +3,18 @@ import HomeMainbanner from './HomeMainbanner.vue';
 import CircularCard from '@/components/CircularCard/CircularCard.vue';
 import MusicCard from '@/components/MusicCard/MusicCard.vue';
 import TabCard from '@/components/TabCard/TabCard.vue';
-import VideoTab from '@/views/video/index.vue';
+// import VideoTab from '@/views/video/index.vue';
 
 import { onMounted, ref } from 'vue';
 import { useMainStore } from '@/stores/main';
 import { storeToRefs } from 'pinia';
-import { useCacheStore } from '@/stores/noCache';
-const cacheStore = useCacheStore();
+// import { useCacheStore } from '@/stores/noCache';
+// const cacheStore = useCacheStore();
 
 import { getDaily } from '@/apis/main';
 const store = useMainStore();
 const { Personalized1, Personalized2, Personalized3 } = storeToRefs(store);
-const { ActiveUp, ActiveDown } = storeToRefs(cacheStore);
+// const { ActiveUp, ActiveDown } = storeToRefs(cacheStore);
 
 const getPersonalizedList = store.getPersonalizedList;
 onMounted(() => {
@@ -55,9 +55,9 @@ const getDailyList = async () => {
             <MusicCard :dayMusic="dayMusic2"></MusicCard>
         </div>
         <div class="bottom-div"></div>
-        <div class="VideoTab" :class="{ ActiveUp: ActiveUp, ActiveDown: ActiveDown }" @mousewheel.prevent>
+        <!-- <div class="VideoTab" :class="{ ActiveUp: ActiveUp, ActiveDown: ActiveDown }" @mousewheel.prevent>
             <VideoTab></VideoTab>
-        </div>
+        </div> -->
     </div>
 </template>
 <style lang="scss" scoped>
@@ -130,7 +130,6 @@ const getDailyList = async () => {
     animation: ActiveUp 0.5s forwards;
     -webkit-animation: ActiveUp 0.5s forwards;
     transition: all 0.1s ease;
-
     z-index: 999;
 }
 .ActiveDown {

@@ -150,7 +150,7 @@ const previousPong = async () => {
     if (playIndex.value < 0) {
         playIndex.value = playList.value.length - 1;
     }
-    await getLyic(playList.value[playIndex.value as keyof typeof playList].id);
+    await getLyic(playList.value[playIndex.value].id);
     Audio.value.play();
 };
 //下一首
@@ -159,7 +159,7 @@ const nextSong = async () => {
     if (playIndex.value > playList.value.length - 1) {
         playIndex.value = 0;
     }
-    await getLyic(playList.value[playIndex.value as keyof typeof playList].id);
+    await getLyic(playList.value[playIndex.value].id);
     Audio.value.play();
 };
 const togglePlay = () => {
@@ -174,19 +174,21 @@ const handleEnded = async () => {
     if (playIndex.value > playList.value.length - 1) {
         // 如果是最后一曲，重新播放第一曲
         playIndex.value = 0;
-        await getLyic(playList.value[playIndex.value as keyof typeof playList].id);
+        await getLyic(playList.value[playIndex.value].id);
         Audio.value.play();
     } else {
         // 播放下一曲
         playIndex.value++;
-        await getLyic(playList.value[playIndex.value as keyof typeof playList].id);
+        await getLyic(playList.value[playIndex.value].id);
         Audio.value.play();
     }
 };
 const canplay = () => {
-    duration.value = Audio.value.duration;
-    lastLick.value = playList.value[playIndex.value as keyof typeof playList].id;
-    activeIndex.value = playIndex.value;
+    if (Audio) {
+        duration.value = Audio.value.duration;
+        lastLick.value = playList.value[playIndex.value].id;
+        activeIndex.value = playIndex.value;
+    }
 };
 //调节音量显示
 const changeVolume = () => {
@@ -206,7 +208,7 @@ const correctingErrors = async () => {
     if (Audio.value.networkState !== 1) {
         message.error('该歌曲由于版权问题暂时无法播放，为您播放下一首音乐', 2, () => {});
         playIndex.value++;
-        await getLyic(playList.value[playIndex.value as keyof typeof playList].id);
+        await getLyic(playList.value[playIndex.value].id);
         Audio.value.play();
     }
 };
